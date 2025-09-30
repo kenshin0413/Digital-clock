@@ -9,12 +9,15 @@ import SwiftUI
 
 struct DigitalclockView: View {
     @AppStorage("selectedDesign") var selectedDesign: String = ClockDesign.greenColor.rawValue
+    @AppStorage("selectedCity") var selectedCity: String = "Asia/Tokyo"
     @StateObject var viewModel = DigitalclockViewModel()
     @State var showModalAlarm = false
     @State var showModalSetting = false
     @State var showButton = false
     var body: some View {
         let design = ClockDesign(rawValue: selectedDesign) ?? .greenColor
+        let screenWith = UIScreen.main.bounds.width
+        let fontsize = screenWith * 0.15
         ZStack {
             Color.black
                 .ignoresSafeArea()
@@ -46,7 +49,7 @@ struct DigitalclockView: View {
                     .foregroundColor(.gray)
                 
                 Text(viewModel.formattedTime)
-                    .font(.system(size: 110, weight: .heavy, design: .monospaced))
+                    .font(.system(size: fontsize, weight: .heavy, design: .monospaced))
                     .foregroundColor(design.color)
                     .shadow(color: design.color, radius: 6)
             }

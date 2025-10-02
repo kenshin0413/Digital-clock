@@ -8,8 +8,10 @@
 import Foundation
 import Combine
 import UserNotifications
+import SwiftUI
 
 class DigitalclockViewModel: ObservableObject {
+    @AppStorage("selectedCity") var selectedCity: String = "Asia/Tokyo"
     @Published var currentTime = Date()
     @Published var alarmTime = Date()
     var cancellable: AnyCancellable?
@@ -24,13 +26,15 @@ class DigitalclockViewModel: ObservableObject {
     var formattedTime: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: selectedCity)
         return formatter.string(from: currentTime)
     }
     
     var formattedDate: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年M月d日 EEEE"
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.autoupdatingCurrent
+        formatter.setLocalizedDateFormatFromTemplate("yyyyMMMddEEEE")
+        formatter.timeZone = TimeZone(identifier: selectedCity)
         return formatter.string(from: currentTime)
     }
     // 通知の許可

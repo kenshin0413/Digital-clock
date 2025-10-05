@@ -1,7 +1,7 @@
 //
 //  ClockDesign.swift
 //  Digital-clock
-//
+//  
 //  Created by miyamotokenshin on R 7/10/02.
 //
 

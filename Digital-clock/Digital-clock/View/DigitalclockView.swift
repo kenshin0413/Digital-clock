@@ -10,7 +10,7 @@ import SwiftUI
 struct DigitalclockView: View {
     @AppStorage("selectedDesign") var selectedDesign: String = ClockDesign.greenColor.rawValue
     @AppStorage("selectedCity") var selectedCity: String = "Asia/Tokyo"
-    @StateObject var viewModel = DigitalclockViewModel()
+    @StateObject var viewModel = ClockViewModel()
     @State var showModalAlarm = false
     @State var showModalSetting = false
     @State var showButton = false
@@ -54,7 +54,7 @@ struct DigitalclockView: View {
                     .shadow(color: design.color, radius: 6)
             }
             .padding()
-            .onAppear(perform: viewModel.requestNotificationPermission)
+            // 通知許可はアラーム画面で要求
             .sheet(isPresented: $showModalAlarm) {
                 AlarmView()
             }

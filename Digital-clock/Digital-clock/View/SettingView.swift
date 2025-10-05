@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage("selectedDesign") var selectedDesign: String = ClockDesign.greenColor.rawValue
-    @AppStorage("selectedCity") var selectedCity: String = "Asia/Tokyo"
+    @StateObject var viewModel = SettingViewModel()
     var body: some View {
         NavigationStack {
             Form {
                 Section("一般") {
-                    Picker("デザイン選択", selection: $selectedDesign) {
+                    Picker("デザイン選択", selection: $viewModel.selectedDesign) {
                         ForEach(ClockDesign.allCases, id: \.self) { design in
                             Text(LocalizedStringKey(design.rawValue)).tag(design.rawValue)
                         }
                     }
                     
-                    Picker("都市", selection: $selectedCity) {
+                    Picker("都市", selection: $viewModel.selectedCity) {
                         ForEach(WorldCites) { city in
                             Text(city.name).tag(city.timeZoneID)
                         }

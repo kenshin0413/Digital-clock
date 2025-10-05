@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlarmView: View {
-    @StateObject var viewModel = DigitalclockViewModel()
+    @StateObject var viewModel = AlarmViewModel()
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
@@ -23,6 +23,9 @@ struct AlarmView: View {
                 }
             }
             .navigationTitle("通知")
+            .onAppear {
+                viewModel.requestNotificationPermission()
+            }
         }
     }
 }
